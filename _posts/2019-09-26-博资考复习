@@ -1,0 +1,29 @@
+---
+layout:     post
+title:      博资考复习笔记
+subtitle:   
+date:       2019-09-26
+author:     DW
+header-img: img/post/post-bg-2.jpg
+catalog: true
+tags:
+    - 力学  
+    - 统计力学  
+    - 热学  
+    - 光学  
+    - 电磁学  
+    - 近代物理  
+---
+
+# 博资考复习笔记  
+## 力学与理论力学  
+
+> 1. 质点与参考系  
++. 质点：物体具有质量，物体占据空间  
++. 参考系：参考空间与时钟的组合  
+2. 速度与加速度  
++. 平均速度  
+    $$ \lvert \vec{v} \rvert =\frac{\vec{r}(t_2)-\vec{r}(t_1))}}{t_2-t_1} = \frac{\Delta\vec{r}}}{\Delta t} $$   
++. 平均速率  
+    $$ \lvert v \rvert =\frac{s(t_2)-s(t_1))}}{t_2-t_1} = \frac{\Delta s}}{\Delta t} $$ 
+    $$ \vec{x} $$ 
