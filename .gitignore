@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/macos
-
+*.aux
+*.log
+*.out
+*.gz
+*.toc
 ### macOS ###
 *.DS_Store
 .AppleDouble
