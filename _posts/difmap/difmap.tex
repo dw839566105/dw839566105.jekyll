@@ -1,0 +1,618 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[colorlinks,linkcolor=red]{hyperref}
+\usepackage{amsmath} 
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{color, soul}
+\title{DIFMAP Guidance}
+\author{DW}
+\begin{document}
+\setulcolor{red} 
+\setstcolor{green} 
+\sethlcolor{yellow}
+
+\lstset{numbers=left,
+numberstyle=\tiny,
+keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50},
+frame=shadowbox,
+rulesepcolor=\color{red!20!green!20!blue!20}
+}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Download}
+
+\par introduction site : \url{https://science.nrao.edu/facilities/vlba/docs/manuals/oss2013a/post-processing-software/difmap}\\
+In linux, typing
+\begin{lstlisting}[language={[ANSI]C}]
+lftp ftp://ftp.astro.caltech.edu/pub/difmap/
+lftp :~> get difmap2.5e.tar.gz 
+lftp :~> get cookbook.ps.gz 
+lftp :~> quit
+\end{lstlisting}
+In README file, the install procedure shown by following command:
+\begin{lstlisting}[language={[ANSI]C}]
+tar xzf difmap2.5e.tar.gz 
+cd uvf_difmap/
+vi ./configure
+./configure linux-i486-gcc
+sudo emerge -av pgplot
+./makeall
+\end{lstlisting}
+
+Here I use gentoo, the pgplot can be also installed by \fbox{ftp} at \fbox{/pub/pgplot}, or you can just install (I didn't try this)
+\begin{lstlisting}[language={[ANSI]C}]
+sudo apt-get install pgplot5
+\end{lstlisting}
+
+And the data with suffix .fit can be downloaded in github \url{https://github.com/rstofi/VLBI_Imaging_Script/raw/master/VLBI_Imaging_Script/J0017%2B8135_S_1998_10_01_pus_vis.fits} and using wget is just fine.
+
+\section{Starting up}
+\par In the download directory, typing ./difmap to get in to the work space.
+\tiny
+\begin{lstlisting}[language={[ANSI]C}]
+douwei@dpcg ~/difmap/uvf_difmap $ ./difmap
+Caltech difference mapping program - version 2.5e (30 May 2019)
+Copyright (c) 1993-2019 California Institute of Technology. All Rights Reserved.
+Type 'help difmap' to list difference mapping commands and help topics.
+Started logfile: difmap.log_8 on Sun Sep 29 13:49:37 2019
+0>
+\end{lstlisting}
+\normalsize
+\par A \fbox{difmap.log} will be generated and all commands will be placed in. Each line prefixed with a !. and the log file can be executed as a command file with \fbox{DIFMAP} by typing
+\begin{lstlisting}[language={[ANSI]C}]
+0>@difmap.log
+\end{lstlisting}
+and \fbox{help} to get help use \fbox{exit} or \fbox{quit} to quit
+
+\section{Read data}
+We begin with our download data within \fbox{DIFMAP} by \fbox{observe}
+\tiny
+\begin{lstlisting}[language={[ANSI]C}]
+0>observe J0017+8135_S_1998_10_01_pus_vis.fits 
+Reading UV FITS file: J0017+8135_S_1998_10_01_pus_vis.fits
+AN table 1: 1533 integrations on 136 of 136 possible baselines.
+AN table 2: 810 integrations on 136 of 136 possible baselines.
+AN table 3: 240 integrations on 136 of 136 possible baselines.
+Apparent sampling: 0.29775 visibilities/baseline/integration-bin.
+*** This seems a bit low - see "help observe" on the binwid argument.
+Found source: J0017+8135
+
+There are 4 IFs, and a total of 4 channels:
+
+ IF  Channel    Frequency  Freq offset  Number of   Overall IF
+      origin    at origin  per channel   channels    bandwidth
+ ------------------------------------------------------------- (Hz)
+ 01        1  2.22298e+09        4e+06          1        4e+06
+ 02        2  2.24298e+09        4e+06          1        4e+06
+ 03        3  2.33298e+09        4e+06          1        4e+06
+ 04        4  2.36298e+09        4e+06          1        4e+06
+
+Polarization(s): RR
+
+Read 2 lines of history.
+
+Reading 418384 visibilities.
+
+\end{lstlisting}
+
+use \fbox{head} to get more information of the observation.
+
+\begin{lstlisting}
+0>header
+
+UV FITS miscellaneous header keyword values:
+  OBSERVER = "RDV11"
+  DATE-OBS = "1998-10-01"
+  ORIGIN   = "AIPSvlb047       NBRIPM               31DEC08"
+  TELESCOP = "VLBA"
+  INSTRUME = "VLBA"
+  EQUINOX  = 2000.00
+
+Sub-array 1 contains:
+ 136 baselines   17 stations
+ 1533 integrations    6 scans
+
+  Station  name               X (m)            Y (m)             Z(m)
+    01     BR            -2.112065e+06     3.705357e+06     4.726814e+06
+    02     FD            -1.324009e+06     5.332182e+06     3.231962e+06
+    03     GC            -2.281547e+06     1.453645e+06     5.756993e+06
+    04     HN             1.446375e+06     4.447940e+06     4.322306e+06
+    05     KK            -5.543838e+06     2.054568e+06     2.387852e+06
+    06     KP            -1.995679e+06     5.037318e+06     3.357328e+06
+    07     LA            -1.449752e+06     4.975299e+06     3.709124e+06
+    08     MK            -5.464075e+06     2.495249e+06     2.148297e+06
+    09     NL            -1.308723e+05     4.762317e+06     4.226851e+06
+    10     NY             1.202463e+06    -2.527344e+05     6.237766e+06
+    11     ON             3.370606e+06    -7.119175e+05     5.349831e+06
+    12     OV            -2.409150e+06     4.478573e+06     3.838617e+06
+    13     PT            -1.640954e+06     5.014816e+06     3.575412e+06
+    14     SC             2.607849e+06     5.488070e+06     1.932740e+06
+    15     WF             1.492207e+06     4.458131e+06     4.296016e+06
+    16     MC             4.461370e+06    -9.195969e+05     4.449559e+06
+    17     GN             8.837727e+05     4.924386e+06     3.944042e+06
+
+Sub-array 2 contains:
+ 136 baselines   17 stations
+ 810 integrations    4 scans
+
+  Station  name               X (m)            Y (m)             Z(m)
+    01     BR            -2.112065e+06     3.705357e+06     4.726814e+06
+    02     FD            -1.324009e+06     5.332182e+06     3.231962e+06
+    03     GC            -2.281547e+06     1.453645e+06     5.756993e+06
+    04     HN             1.446375e+06     4.447940e+06     4.322306e+06
+    05     KK            -5.543838e+06     2.054568e+06     2.387852e+06
+    06     KP            -1.995679e+06     5.037318e+06     3.357328e+06
+    07     LA            -1.449752e+06     4.975299e+06     3.709124e+06
+    08     MK            -5.464075e+06     2.495249e+06     2.148297e+06
+    09     NL            -1.308723e+05     4.762317e+06     4.226851e+06
+    10     NY             1.202463e+06    -2.527344e+05     6.237766e+06
+    11     ON             3.370606e+06    -7.119175e+05     5.349831e+06
+    12     OV            -2.409150e+06     4.478573e+06     3.838617e+06
+    13     PT            -1.640954e+06     5.014816e+06     3.575412e+06
+    14     SC             2.607849e+06     5.488070e+06     1.932740e+06
+    15     WF             1.492207e+06     4.458131e+06     4.296016e+06
+    16     MC             4.461370e+06    -9.195969e+05     4.449559e+06
+    17     GN             8.837727e+05     4.924386e+06     3.944042e+06
+
+Sub-array 3 contains:
+ 136 baselines   17 stations
+ 240 integrations    2 scans
+
+  Station  name               X (m)            Y (m)             Z(m)
+    01     BR            -2.112065e+06     3.705357e+06     4.726814e+06
+    02     FD            -1.324009e+06     5.332182e+06     3.231962e+06
+    03     GC            -2.281547e+06     1.453645e+06     5.756993e+06
+    04     HN             1.446375e+06     4.447940e+06     4.322306e+06
+    05     KK            -5.543838e+06     2.054568e+06     2.387852e+06
+    06     KP            -1.995679e+06     5.037318e+06     3.357328e+06
+    07     LA            -1.449752e+06     4.975299e+06     3.709124e+06
+    08     MK            -5.464075e+06     2.495249e+06     2.148297e+06
+    09     NL            -1.308723e+05     4.762317e+06     4.226851e+06
+    10     NY             1.202463e+06    -2.527344e+05     6.237766e+06
+    11     ON             3.370606e+06    -7.119175e+05     5.349831e+06
+    12     OV            -2.409150e+06     4.478573e+06     3.838617e+06
+    13     PT            -1.640954e+06     5.014816e+06     3.575412e+06
+    14     SC             2.607849e+06     5.488070e+06     1.932740e+06
+    15     WF             1.492207e+06     4.458131e+06     4.296016e+06
+    16     MC             4.461370e+06    -9.195969e+05     4.449559e+06
+    17     GN             8.837727e+05     4.924386e+06     3.944042e+06
+
+There are 4 IFs, and a total of 4 channels:
+
+  IF  Channel    Frequency  Freq offset  Number of   Overall IF
+       origin    at origin  per channel   channels    bandwidth
+  ------------------------------------------------------------- (Hz)
+  01        1  2.22298e+09        4e+06          1        4e+06
+  02        2  2.24298e+09        4e+06          1        4e+06
+  03        3  2.33298e+09        4e+06          1        4e+06
+  04        4  2.36298e+09        4e+06          1        4e+06
+
+Source parameters:
+  Source: 	 J0017+8135
+  RA     = 	 00 17 08.475 (2000.0)	 00 17 14.947 (apparent)
+  DEC    = 	+81 35 08.137        	+81 34 41.639
+
+Antenna pointing center:
+  OBSRA  = 	 00 17 08.475 (2000.0)
+  OBSDEC = 	+81 35 08.136
+
+Data characteristics:
+  Recorded units are UNCALIB.
+  Recorded polarizations: RR
+  Phases are rotated 0 mas East and 0 mas North.
+  UVW coordinates are rotated by 0 degrees clockwise.
+  Scale factor applied to FITS data weights: 1
+  Coordinate projection: SIN
+
+Summary of overall dimensions:
+  3 sub-arrays, 4 IFs, 4 channels, 2583 integrations
+  1 polarizations, and up to 136 baselines per sub-array
+
+Time related parameters:
+  Reference date: 1998 day 274/00:00:00  (1998 Oct 01)
+  Julian Date: 2451087.50, Epoch J1998.746
+  GAST at reference date: 00 38 05.893
+  Coherent integration time   = 0.0 sec
+  Incoherent integration time = 0.0 sec
+  Sum of scan durations = 5136 sec
+  UT range: 274/14:35:30 to 275/12:24:51
+  Mean epoch:  JD 2451088.562 = J1998.749
+
+\end{lstlisting}
+
+\normalsize
+\par \ul{In the cookbook:}
+\par In order for editing and self calibration to work visibilities from different baselines \hl{must be grouped with the same integration times}.
+\fbox{UV FITS} files \textbf{DO NOT} \hl{provide any means to map visibilities} on different baselines into integrations. Each visibility has its own time stamp which need not agree with those on other baselines \hl{within the same logical integration}. \fbox{DIFMAP} on the other hand does require that visibilities be grouped into integrations. This is the reason for the 'binwid' argument of the observe command. If the visibilities do not lie on an integration grid then you must specify a suitable integration time into which visibilities should be binned into integrations. Depending on how the \fbox{FITS} file has been processed, it may already have visibilities grouped into integrations with identical time stamps assigned to each grouped visibility, in which case no 'binwid' argument will be required If you do not know what state your file is in, then try to read it with the \fbox{observe} command without specifying an integration time. Then if \fbox{observe} reports an apparent sampling of $\leq0.5$ then either run the \fbox{uvaver} command to re-grid the data or equivalently re-run \fbox{observe} with a suitable integration time. Other symptoms of incompletely binned integrations are that 、\fbox{selfcal} flags all of your data due to the lack of closure quantities and that station based editing in \fbox{vplot} behaves like baseline based editing.
+
+\par To exam the data, we can type command \fbox{select} first if more than 1 polarization.
+\begin{lstlisting}
+0>select 
+Selecting polarization: RR,  channels: 1..4
+Reading IF 1 channels: 1..1
+Reading IF 2 channels: 2..2
+Reading IF 3 channels: 3..3
+Reading IF 4 channels: 4..4
+\end{lstlisting}
+Take a look at a plot of amplitude vs $u-v$ radius
+\scriptsize
+\begin{lstlisting}
+0>radplot
+ Graphics device/type (? to see list, default /NULL): /xserve
+
+Using default options string "m1"
+Move the cursor into the plot window and press 'H' for help
+\end{lstlisting}
+
+\par Here we use \fbox{xpra} to show the picture and therefore we choose \fbox{/xserve}. All the devices listed in the following
+\begin{lstlisting}
+ Graphics device/type (? to see list, default /NULL): ?
+ PGPLOT v5.2.2 Copyright 1997 California Institute of Technology
+ Interactive devices:
+    /TEK4010   (Tektronix 4010 terminal)
+    /GF        (GraphOn Tek terminal emulator)
+    /RETRO     (Retrographics VT640 Tek emulator)
+    /GTERM     (Color gterm terminal emulator)
+    /XTERM     (XTERM Tek terminal emulator)
+    /ZSTEM     (ZSTEM Tek terminal emulator)
+    /V603      (Visual 603 terminal)
+    /TK4100    (Tektronix 4100 terminals)
+    /VMAC      (VersaTerm-PRO for Mac, Tek 4105)
+    /VT125     (DEC VT125 and other REGIS terminals)
+    /XDISP     (pgdisp or figdisp server)
+    /XWINDOW   (X window window@node:display.screen/xw)
+    /XSERVE    (A /XWINDOW window that persists for re-use)
+ Non-interactive file formats:
+    /CANON     (Canon LBP-8/A2 Laser printer, landscape)
+    /CGM       (CGM file, indexed colour selection mode)
+    /CGMD      (CGM file, direct colour selection mode)
+    /CW6320    (Colorwriter 6320 plotter)
+    /GIF       (Graphics Interchange Format file, landscape orientation)
+    /VGIF      (Graphics Interchange Format file, portrait orientation)
+    /HPGL      (Hewlett Packard HPGL plotter, landscape orientation)
+    /VHPGL     (Hewlett Packard HPGL plotter, portrait orientation)
+    /HPGL2     (Hewlett-Packard graphics)
+    /HIDMP     (Houston Instruments pen plotter)
+    /HP7221    (Hewlett-Packard HP7221 pen plotter
+    /LIPS2     (Canon LIPS2 file, landscape orientation)
+    /VLIPS2    (Canon LIPS2 file, portrait orientation)
+    /LATEX     (LaTeX picture environment)
+    /NULL      (Null device, no output)
+    /PGMF      (PGPLOT metafile)
+    /PNG       (Portable Network Graphics file)
+    /TPNG      (Portable Network Graphics file - transparent background)
+    /PPM       (Portable Pixel Map file, landscape orientation)
+    /VPPM      (Portable Pixel Map file, portrait orientation)
+    /PS        (PostScript file, landscape orientation)
+    /VPS       (PostScript file, portrait orientation)
+    /CPS       (Colour PostScript file, landscape orientation)
+    /VCPS      (Colour PostScript file, portrait orientation)
+    /QMS       (QUIC/QMS file, landscape orientation)
+    /VQMS      (QUIC/QMS file, portrait orientation)
+    /VCANON    (Canon LBP-8/A2 Laser printer, portrait)
+    /WD        (X Window Dump file, landscape orientation)
+    /VWD       (X Window Dump file, portrait orientation)
+\end{lstlisting}
+\normalsize
+Press \fbox{H} in the plot we get the help
+\scriptsize
+\begin{lstlisting}
+You requested help by pressing 'H'.
+The following keys are defined when pressed inside the plot:
+ X - Quit radplt
+ L - Re-display whole plot
+ . - Re-display plot with alternate marker symbol.
+ n - Highlight next telescope
+ p - Highlight previous telescope
+ N - Step to the next sub-array to highlight.
+ P - Step to the preceding sub-array to highlight.
+ T - Specify highlighted telescope from keyboard
+ s - Show the baseline and time of the nearest point to the cursor
+ S - Show the amp/phase statistics of the data within a selected area.
+ V - Show the real/imag statistics of the data within a selected area.
+ A - (Left-mouse-button) Flag the point closest to the cursor
+ C - Initiate selection of an area to flag.
+ W - Toggle spectral-line channel based editing.
+ Z - Select a new amplitude or phase display range.
+ U - Select a new UV-radius display range.
+Display mode options:
+ M - Toggle model plotting.
+ 1 - Display amplitude only.
+ 2 - Display phase only.
+ 3 - Display amplitude and phase.
+ E - Toggle whether to display an error plot.
+ - - Toggle whether to display residuals.
+ + - Toggle whether to use a cross-hair cursor if available.
+\end{lstlisting}
+\normalsize
+Another useful display is a plot of the $u-v$ coverage. This may be obtained by typing
+\begin{lstlisting}
+0>uvplot
+\end{lstlisting}
+
+To look at a cut of amplitude and/or phase along any radial line in the $u-v$ plane use the command \fbox{projplot} to display the projected amplitude and phase with distance along the position angle of the majority of source structure.
+\begin{lstlisting}
+0>projplot 45
+\end{lstlisting}
+\par Use \fbox{tplot} to check whether data are missing or have gaps.
+\begin{lstlisting}
+0>tplot
+\end{lstlisting}
+\par color:\\
+green: no edit\\
+yellow: any data to an antenna are flagged\\
+blue: antenna has been flagged  in \fbox{selfcal} or \fbox{corplot}\\
+red: all data to a given antenna are flagged
+
+\section{Editing data}
+\par To get rid of bad data
+\begin{lstlisting}
+0>vplot
+\end{lstlisting}
+use \fbox{scancap} to change interscan gap (default 1 hour)
+\scriptsize
+\begin{lstlisting}
+0>scangap
+The delimiting interscan gap is 3600 seconds in all sub-arrays.
+\end{lstlisting}
+\normalsize
+use \fbox{wtscale} to change weight scale factor(default 1.0)
+\scriptsize
+\begin{lstlisting}
+0>scangap
+The delimiting interscan gap is 3600 seconds in all sub-arrays.
+\end{lstlisting}
+\normalsize
+The Vplot key bindings:
+\tiny
+\begin{lstlisting}
+ H - List the following key bindings.
+ X - Exit vplot (right-mouse-button).
+ A - Flag or un-flag the visibility nearest the cursor (left-mouse-button).
+ U - Select a new time range (hit U again for the full range).
+ Z - Select a new amplitude or phase range (hit Z twice for full range).
+ C - Flag all data inside a specified rectangular box.
+ R - Restore data inside a specified rectangular box.
+ K - Flag all visibilities of a selected baseline and scan.
+ L - Redisplay the current plot.
+ n - Display the next set of baselines.
+ p - Display the preceding set of baselines.
+ N - Display the next sub-array.
+ P - Display the preceding sub-array.
+ ] - Plot from the next IF.
+ [ - Plot from the preceding IF.
+ M - Toggle whether to display model visibilities.
+ F - Toggle whether to display flagged visibilities.
+ E - Toggle whether to display error bars.
+ G - Toggle between GST and UTC times along the X-axis.
+ S - Select the number of sub-plots per page.
+ O - Toggle between seeing all or just upper baselines.
+ 1 - Plot only amplitudes.
+ 2 - Plot only phases.
+ 3 - Plot both amplitudes and phases.
+ - - Toggle whether to display residuals.
+ B - Toggle whether to break the plot into scans (where present).
+ V - Toggle whether to use flagged data in autoscaling.
+ + - Toggle whether to use a cross-hair cursor if available.
+ T - Request a new reference telescope/baseline.
+   - (SPACE BAR) Toggle station based vs. baseline based editing.
+ I - Toggle IF editing scope.
+ W - Toggle spectral-line channel editing scope.
+\end{lstlisting}
+\normalsize
+write a copy
+\begin{lstlisting}
+0>wobs bak.edt
+\end{lstlisting}
+
+\normalsize
+\section{Different mapping}
+In each \caps{selfcal-mapplot-clean} iteration, the model is subtracted from the data in the $u-v$ plane. To start with the default 1 Jy point source model at the map center type:
+\tiny
+\begin{lstlisting}
+0>startmod
+Applying default point source starting model.
+Performing phase self-cal
+Adding 1 model components to the UV plane model.
+The established model now contains 1 components and 1 Jy
+
+Correcting IF 1.
+ A total of 14903 telescope corrections were flagged in sub-array 1.
+ A total of 9156 telescope corrections were flagged in sub-array 2.
+ A total of 2135 telescope corrections were flagged in sub-array 3.
+
+Correcting IF 2.
+ A total of 14904 telescope corrections were flagged in sub-array 1.
+ A total of 9156 telescope corrections were flagged in sub-array 2.
+ A total of 2136 telescope corrections were flagged in sub-array 3.
+
+Correcting IF 3.
+ A total of 14906 telescope corrections were flagged in sub-array 1.
+ A total of 9156 telescope corrections were flagged in sub-array 2.
+ A total of 2136 telescope corrections were flagged in sub-array 3.
+
+Correcting IF 4.
+ A total of 14906 telescope corrections were flagged in sub-array 1.
+ A total of 9288 telescope corrections were flagged in sub-array 2.
+ A total of 2137 telescope corrections were flagged in sub-array 3.
+
+Fit before self-cal, rms=2.128069Jy  sigma=0.004096
+Fit after  self-cal, rms=2.126510Jy  sigma=0.004068
+clrmod: Cleared the established, tentative and continuum models.
+Redundant starting model cleared.
+\end{lstlisting}
+\normalsize
+\par \fbox{selfcal} reports the rms difference between the model and the data and also sigma, which is the rms divided by the variance implied by the visibility weights (effectively sigma is the square root of the reduced $\chi^2$.
+\par If deal with a more complicated model than a point source, supply the name of a file containing that model to \fbox{startmod}
+\par Define the image size and cell size you wish to map. Image size must be an integer power-of-2, it should be at least twice the maximum source dimension. The cell size should be small enough to allow for 3 or more pixels across the synthesized beam. for example:
+\scriptsize
+\begin{lstlisting}
+0>mapsize 256,0.2
+Map grid = 256x256 pixels with 0.200x0.200 milli-arcsec cellsize.
+\end{lstlisting}
+\normalsize
+\par or use fixed cell size.
+\scriptsize
+\begin{lstlisting}
+0>uvrange 0,51.6
+Only data in the UV range: 0 -> 51.6 (mega-wavelengths) will be gridded.
+\end{lstlisting}
+\normalsize
+use uniform weighting, error power of -1
+\scriptsize
+\begin{lstlisting}
+0>uvweight 2,-1
+Uniform weighting binwidth: 2 (pixels).
+Gridding weights will be scaled by errors raised to the power -1.
+Radial weighting is not currently selected.
+\end{lstlisting}
+\normalsize
+use \fbox{mapplot} to take a look of the \hl{dirty map}
+\scriptsize
+\begin{lstlisting}
+0>mapplot
+Inverting map and beam 
+Estimated beam: bmin=1.936 mas, bmaj=2.084 mas, bpa=71.83 degrees
+Estimated noise=479.048 mJy/beam.
+ Graphics device/type (? to see list, default /NULL): /xserve
+Move the cursor into the plot window and press 'H' for help
+ \end{lstlisting}
+ \normalsize
+typing \fbox{H}
+ \scriptsize
+\begin{lstlisting}
+ You have selected one window corner - Use one of the following keys
+ A - Select the opposite corner of the window you have started
+ D - Discard the incomplete window
+The following keys may be selected when the cursor is in the plot
+ X - Quit this session
+ A - Select the two opposite corners of a new clean window.
+ D - Delete the window with a corner closest to the cursor.
+ S - Describe the area of the window with a corner closest to the cursor.
+ V - Report the value of the pixel under the cursor.
+ f - Fiddle the colormap contrast and brightness.
+ F - Reset the colormap contrast and brightness to 1, 0.5.
+ L - Re-display the plot.
+ G - Install the default gray-scale color map.
+ c - Install the default pseudo-color color map.
+ C - Install a color map named at the keyboard.
+ T - Re-display with a different transfer function.
+ Z - Select a sub-image to be displayed.
+ K - Retain the current sub-image limits for subsequent mapplot's
+ m - Toggle display of the model.
+ M - Toggle display of just the variable part of the model.
+ N - Initiate the description of a new model component.
+ R - Remove the model component closest to the cursor.
+ U - Remove the marker closest to the cursor.
+ + - Toggle whether to use a cross-hair cursor if available.
+ H - List key bindings.
+ \end{lstlisting}
+ \subsection{Cleaning}
+\normalsize
+\par Choose a number of iterations and a loop gain for cleaning
+\scriptsize
+\begin{lstlisting}
+0>clean 100,0.05
+clean: niter=100  gain=0.05  cutoff=0
+Component: 050  -  total flux cleaned = 0.438179 Jy
+Component: 100  -  total flux cleaned = 0.501705 Jy
+Total flux subtracted in 100 components = 0.501705 Jy
+Clean residual min=-0.008169 max=0.039204 Jy/beam
+Clean residual mean=0.001368 rms=0.004485 Jy/beam
+Combined flux in latest and established models = 0.501705 Jy
+\end{lstlisting}
+\normalsize
+\subsection{Self-Calibration}
+\par with the improved, but still basically point-like model just obtained, self-calibrate the phase by typing
+\scriptsize
+\begin{lstlisting}
+0>selfcal
+Performing phase self-cal
+Adding 16 model components to the UV plane model.
+The established model now contains 16 components and 0.501705 Jy
+
+Correcting IF 1.
+
+Correcting IF 2.
+
+Correcting IF 3.
+
+Correcting IF 4.
+
+Fit before self-cal, rms=2.070359Jy  sigma=0.002511
+Fit after  self-cal, rms=2.070296Jy  sigma=0.002511
+
+\end{lstlisting}
+\normalsize
+\par Use \fbox{mapplot} to see the effect of \fbox{gscale}. Use \fbox{gscale true} to allow the telescope amplitude factors to float freely. It is best to start with long solution intervals to insure a high enough SNR. For example:
+\scriptsize
+\begin{lstlisting}
+0>selfcal true,true,30
+Performing amp+phase self-cal over 30 minute time intervals
+
+Correcting IF 1.
+
+Correcting IF 2.
+
+Correcting IF 3.
+
+Correcting IF 4.
+
+Fit before self-cal, rms=2.070296Jy  sigma=0.002511
+Fit after  self-cal, rms=2.013221Jy  sigma=0.002459
+\end{lstlisting}
+\normalsize
+\par If the amplitude is not trusty, type
+\scriptsize
+\begin{lstlisting}
+0>selfcal true,true,30
+0>uncal false,true
+uncal: All telescope amplitude corrections have been un-done.
+\end{lstlisting}
+\normalsize
+\par If the clean is too deepy, we can try \fbox{clrmod true} to throw away your current model. and then iteratively issue \fbox{clean 200,0.03; keep; mapplot}. The \fbox{keep} command is necessary to force subtraction of the clean components from the visibility data as opposed to subtraction in the image plane.
+
+\section{Saving data models, and windows}
+\par Use \fbox{save} to save
+\scriptsize
+\begin{lstlisting}
+0>save tmp
+Writing UV FITS file: tmp.uvf
+Writing 16 model components to file: tmp.mod
+wwins: Wrote 1 windows to tmp.win
+Inverting map and beam 
+Estimated beam: bmin=1.936 mas, bmaj=2.084 mas, bpa=71.83 degrees
+Estimated noise=479.048 mJy/beam.
+restore: Substituting estimate of restoring beam from last 'invert'.
+Restoring with beam: 1.936 x 2.084 at 71.83 degrees (North through East)
+Clean map  min=-0.0079798  max=0.476 Jy/beam
+Writing clean map to FITS file: tmp.fits
+Writing difmap environment to: tmp.par
+\end{lstlisting}
+\normalsize
+\par Individual \fbox{UVFITS}, model,window or map files may be written by typing:
+\scriptsize
+\begin{lstlisting}
+0>wobs tmp.uvf
+0>wmod tmp.mod
+0>wwin tmp.win
+0>wmap tmp.fits
+\end{lstlisting}
+\normalsize
+\par Use \fbox{observe},\fbox{rmod} and \fbox{rwin} to read in merge, model and window files.
+
+\section{Finer point in mapping}
+see index
+
+\section{Generate output for hardcopy}
+
+\section{model fitting}
+
+
+
+
+\end{document}
