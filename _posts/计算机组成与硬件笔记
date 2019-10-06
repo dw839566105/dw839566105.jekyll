@@ -1,0 +1,39 @@
+# Computer Organization and Design  
+## 引言  
+### 程序概念入门  
+# Computer Organization and Design  
+## 引言  
+### 程序概念入门  
+> +. 系统软件(system software): 提供常用服务的软件，包括操作系统、编译程序、加载程序和汇编程序等。 
+>> ++. 操作系统(operating system): 为了使程序更好的在计算机上运行而管理计算机资源的监控程序
+
+>>> +++. 处理基本的输入输出操作  
++++. 分配外存和内存  
++++. 为多个应用程序提供共享计算机资源的服务  
+
+>> ++. 编译程序(compiler): 将高级语言翻译成计算机识别的机器语言的程序  
+++. 汇编程序(assembler): 将指令由助记形式翻译成二进制形式的程序，其中指令为计算机能够理解并服从的命令
+
+位(binary or bit): 2进制中的0或1  
+> 汇编语言(assembly language): 以助记符表示的机器指令  
+机器语言(machine language): 以二进制形式表示的机器指令  
+高级编程语言(high-level programming language): 诸如C、C++、Java等可移植的语言，由编译器转换为汇编语言   
+
+## 硬件
+输入设备(input device): 为计算机提供信息的装置   
+输出设备(output device): 输出计算结果给用户或其他计算机的装置  
+
+> 主板(motherboard): 包含一组集成电路芯片的塑料板，包括处理器、cache、内存以及连接I/O设备的接口  
+> 内存(memory): 程序运行时的存储空间，同时还存储程序运行时所需的数据  
+>> 内存可由集成电路，多片DRAM芯片组成，DRAM(dynamic random access memory)动态随机访问内存，可以随机访问任何地址的内存，与串行访问内存（如磁带）不同的是，无论数据存储在什么位置，DRAM访问所需的时间基本相同  
+
+> 中央处理器单元(central processor unit): 严格按照程序中的指令运行，将数字相加，测试结果并按照结果发出控制信号使I/O设备动作
+>> 数据通路: 执行算术操作  
+>> 控制器: 指导数据通路、存储器和I/O设备    
+> 缓存(cache memory)： 是一种小而快的存储器，一般作为DRAM的缓冲，采用的是SRAM的存储技术  
+>> 静态随机访问存储器(SRAM-static random access memory): 一种存储器的集成电路，但是更快，比DRAM集成度低  
+
+使用分层或抽象（掩盖底层计算机系统细节的模型）的方法，是设计复杂计算机系统的一种主要技术。  
+最重要的抽象之一是硬件和底层软件之间的接口，被命名为“指令集体系结构(instruction set architecture)”,操作系统需要封装这些系统功能细节
+
+
