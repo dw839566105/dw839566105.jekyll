@@ -47,11 +47,6 @@ kramdown:
   input: GFM                            # use Github Flavored Markdown !important
 
 
-mathjax:
-  enable: true
-  per_page: true
-  cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-
 # 评论系统
 # Disqus（https://disqus.com/）
 # disqus_username:
