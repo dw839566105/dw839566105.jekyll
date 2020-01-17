@@ -35,6 +35,13 @@ s.t.
 $x_1 x_2 x_3 x_4 \geq 25$
 $x_1^2 + x_2^2 + x_3^2 + x_4^2 = 40$
 
+$\Rightarrow$
+
+> $f(x) = x_1 x_4(x_1+x_2+x_3)$
+$c_1(x) : x_1 x_2 x_3 x_4 - 25 - s = 0$
+$x_2(x) : x_1^2 + x_2^2 + x_3^2 + x_4^2 - 40 = 0$
+$s \geq 0$
+
 #### Barrier function
 >$\min_{x\in R^n} f(x)$
 s.t.
@@ -91,7 +98,7 @@ Define $z_i=\frac{\mu}{x_i}$, the function will be
 $c(x) = 0$
 $XZe-\mu e = 0$
 
-Here e is a all-one vector.
+Here $e$ is a column of ones.
 
 ##### step2
 using Newton-Raphson method
@@ -166,3 +173,11 @@ $$=-$$
 $
 Where $\Sigma_k = X_k^{-1}Z_k$
 and $d_k^z = \mu_kX_k^{-1}e-z_k-\Sigma_kd_k^x$
+
+#### Stepsize $\alpha$
++ 2 objectives in evaluating progress
+  * minimize objective
+  * minimize constraint violations
+
++ 2 popular approaches
+  * discrete in merit function, $merit =f(x)+\nu \sum|c(x)|$
