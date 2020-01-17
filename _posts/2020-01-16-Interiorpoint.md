@@ -158,27 +158,26 @@ $
 $
 \left[                 
   \begin{array}{cc}
-    W_k+\Sigma_k & \nabla c(x_k)\\  
-    \nabla c(x_k)^T & 0\\  
+    W_k+\Sigma_k & \nabla c(x_k)\\\\    
+    \nabla c(x_k)^T & 0\\\\    
   \end{array}
 \right]
-$$
 \left(
     \begin{array}{c}
-    d_k^x\\
-    d_k^\lambda\\
+    d_k^x\\\\  
+    d_k^\lambda\\\\  
     \end{array}
 \right)
-$$=-$$
+=-
 \left(
     \begin{array}{c}
-    \nabla f(x_k) + \nabla c(x_k) \lambda_k - z\\
-    c(x_k) \\
+    \nabla f(x_k) + \nabla c(x_k) \lambda_k - z\\\\  
+    c(x_k) \\\\  
     \end{array}
 \right)
-$
-Where $\Sigma_k = X_k^{-1}Z_k$
-and $d_k^z = \mu_kX_k^{-1}e-z_k-\Sigma_kd_k^x$
+$  
+Where $\Sigma_k = X_k^{-1}Z_k$  
+and $d_k^z = \mu_kX_k^{-1}e-z_k-\Sigma_kd_k^x$  
 
 #### Stepsize $\alpha$
 + 2 objectives in evaluating progress
