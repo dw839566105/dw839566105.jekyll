@@ -110,7 +110,7 @@ Here $e$ is a column of ones.
 using Newton-Raphson method
 $
 \left(              
-  \begin{array}{c}
+  \begin{array}{ccc}
     W_k & \nabla c(x_k) & -I\\  
     \nabla c(x_k)^T & 0 & 0\\
     Z_k & 0 & X_k\\  
