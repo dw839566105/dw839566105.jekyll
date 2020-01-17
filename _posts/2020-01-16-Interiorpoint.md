@@ -112,23 +112,23 @@ $
 \left(              
   \begin{array}{ccc}
     W_k & \nabla c(x_k) & -I\\\\  
-    \nabla c(x_k)^T & 0 & 0\\\\
+    \nabla c(x_k)^T & 0 & 0\\\\  
     Z_k & 0 & X_k\\\\  
   \end{array}
 \right)
 \left(
     \begin{array}{c}
-    d_k^x\\
-    d_k^\lambda\\
-    d_k^z\\
+    d_k^x\\  
+    d_k^\lambda\\  
+    d_k^z\\  
     \end{array}
 \right)
  =-
 \left(
     \begin{array}{c}
-    \nabla f(x) + \nabla c(x) \lambda - z\\
-    c(x) \\
-    XZe-\mu e\\
+    \nabla f(x) + \nabla c(x) \lambda - z\\  
+    c(x) \\  
+    XZe-\mu e\\  
     \end{array}
 \right)
 $
