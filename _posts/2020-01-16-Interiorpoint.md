@@ -185,5 +185,5 @@ and $d_k^z = \mu_kX_k^{-1}e-z_k-\Sigma_kd_k^x$
   * minimize constraint violations
 
 + 2 popular approaches
-  * discrete in merit function, $merit =f(x)+\nu \sum|c(x)|$  
+  * discrete in merit function, $merit =f(x)+\nu \sum \lvert c(x) \rvert$  
 
