@@ -94,7 +94,7 @@ $x^\*$ is a local minimum $\Leftrightarrow$ There is a unique $\lambda^*$ s.t.
 4. $ g(x) \leq 0 $
 5. $ h(x^\*) = 0 $
 6. Positive definite constraints: $\nabla_{xx}\mathcal{L}(x^\*,\lambda^\*)$  
- 
+
 ---
 
 #### Solve 
@@ -116,7 +116,8 @@ $
     Z_k & 0 & X_k\\  
   \end{array}
 \right]
-$$
+$  
+$
 \left(
     \begin{array}{c}
     d_k^x\\
@@ -124,7 +125,9 @@ $$
     d_k^z\\
     \end{array}
 \right)
-$$=-$$
+$  
+$=-$  
+$
 \left(
     \begin{array}{c}
     \nabla f(x) + \nabla c(x) \lambda - z\\
