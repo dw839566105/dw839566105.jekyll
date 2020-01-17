@@ -131,28 +131,29 @@ $
     XZe-\mu e\\\\  
     \end{array}
 \right)
-$
+$  
+
 where:
-$W_k = \nabla_{xx}^2 (f(x_k)+x(x_k)^T -z_k)$
+$W_k = \nabla_{xx}^2 (f(x_k)+x(x_k)^T -z_k)$  
 $z_k = 
 \left[
     \begin{array}{ccc}
-    z_1 & 0 & 0\\
-    0 & \cdots & 0 \\
-    0 & 0 & z_n
+    z_1 & 0 & 0\\\\  
+    0 & \cdots & 0 \\\\  
+    0 & 0 & z_n\\\\  
     \end{array}
 \right]
-$
+$  
 $X_k = 
 \left[
     \begin{array}{ccc}
-    x_1 & 0 & 0\\
-    0 & \cdots & 0 \\
-    0 & 0 & x_n
+    x_1 & 0 & 0\\\\  
+    0 & \cdots & 0 \\\\  
+    0 & 0 & x_n\\\\  
     \end{array}
 \right]
 $
-
+  
 #### Rearrange
 $
 \left[                 
