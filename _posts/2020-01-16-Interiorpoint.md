@@ -94,7 +94,7 @@ $x^\*$ is a local minimum $\Leftrightarrow$ There is a unique $\lambda^*$ s.t.
 4. $ g(x) \leq 0 $
 5. $ h(x^\*) = 0 $
 6. Positive definite constraints: $\nabla_{xx}\mathcal{L}(x^\*,\lambda^\*)$ 
-***
+---
 
 #### Solve 
 ##### step1
