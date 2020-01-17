@@ -88,12 +88,12 @@ Lagrangian:
 $L(x,\mu,\lambda) = f(x)+\mu^th(x) + \lambda^t g(x)$  
 
 $x^\*$ is a local minimum $\Leftrightarrow$ There is a unique $\lambda^*$ s.t.   
-1. $\nabla_x \mathcal{L}(x^*,\lambda^*) = 0$
-2. $\lambda^*>0 $
-3. $\lambda^*g(x^*)=0$
+1. $\nabla_x \mathcal{L}(x^\*,\lambda^\*) = 0$
+2. $\lambda^\*>0 $
+3. $\lambda^\*g(x^\*)=0$
 4. $ g(x) \leq 0 $
-5. $ h(x^*) = 0 $
-6. Positive definite constraints: $\nabla_{xx}\mathcal{L}(x^*,\lambda^*)$ 
+5. $ h(x^\*) = 0 $
+6. Positive definite constraints: $\nabla_{xx}\mathcal{L}(x^\*,\lambda^\*)$ 
 ***
 
 #### Solve 
