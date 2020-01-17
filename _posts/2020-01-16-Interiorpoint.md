@@ -15,8 +15,10 @@ tags:
 #### Nonlinear Constrained Optimization
 >$ \min f(x) $
 s.t.  
-$c(x)=0$ & $ x \geq 0$ 
-#### Using slack variable
+$c(x)=0$ & $ x \geq 0$  
+
+#### Using slack variable  
+
 >$\min_{x\in R^n} f(x)$
 s.t.
 $ g(x)\geq b $
@@ -66,7 +68,8 @@ $\Rightarrow$
 >$\min_{x\in R} (x-3)^2 - \mu\ln(x)$
 
 #### How to solve a barrier function  
-+ KKT conditions 
++ KKT conditions  
+
 > $\min_{x\in R^n} f(x)-\mu\ln\sum_{i=1}^n\ln(x_i)$
 s.t.
 $c(x)=0$
@@ -75,10 +78,11 @@ $\Rightarrow$
 
 > $\nabla f(x)-\nabla c(x)\lambda - \mu\ln\sum_{i=1}^n \frac{1}{x_i}$
 s.t.
-$c(x)=0$
+$c(x)=0$  
+  
+***  
 
-***
-##### KKT condition:
+##### KKT condition:  
 $\min_{x\in R} f(x)$ s.t. $h_i(x)=0$ and $g_j(x)\leq 0$
 Lagrangian:
 $L(x,\mu,\lambda) = f(x)+\mu^th(x) + \lambda^t g(x)$
