@@ -118,17 +118,17 @@ $
 \right)
 \left(
     \begin{array}{c}
-    d_k^x\\  
-    d_k^\lambda\\  
-    d_k^z\\  
+    d_k^x\\\\  
+    d_k^\lambda\\\\  
+    d_k^z\\\\  
     \end{array}
 \right)
  =-
 \left(
     \begin{array}{c}
-    \nabla f(x) + \nabla c(x) \lambda - z\\  
-    c(x) \\  
-    XZe-\mu e\\  
+    \nabla f(x) + \nabla c(x) \lambda - z\\\\  
+    c(x) \\\\  
+    XZe-\mu e\\\\  
     \end{array}
 \right)
 $
