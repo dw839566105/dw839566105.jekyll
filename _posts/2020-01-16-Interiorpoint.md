@@ -2,7 +2,7 @@
 layout:     post
 title:      内点法基本推导
 subtitle:   
-date:       2019-09-20
+date:       2020-01-16
 author:     BY DW
 header-img: img/post/post-bg-2.jpg
 catalog: true
