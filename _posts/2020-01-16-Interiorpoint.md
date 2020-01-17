@@ -111,9 +111,9 @@ using Newton-Raphson method
 $
 \left(              
   \begin{array}{ccc}
-    W_k & \nabla c(x_k) & -I\\  
-    \nabla c(x_k)^T & 0 & 0\\
-    Z_k & 0 & X_k\\  
+    W_k & \nabla c(x_k) & -I\\\\  
+    \nabla c(x_k)^T & 0 & 0\\\\
+    Z_k & 0 & X_k\\\\  
   \end{array}
 \right)
 \left(
