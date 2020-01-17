@@ -116,7 +116,6 @@ $
     Z_k & 0 & X_k\\  
   \end{array}
 \right)
-$ $
 \left(
     \begin{array}{c}
     d_k^x\\
@@ -124,9 +123,7 @@ $ $
     d_k^z\\
     \end{array}
 \right)
-$  
-$=-$  
-$
+ =-
 \left(
     \begin{array}{c}
     \nabla f(x) + \nabla c(x) \lambda - z\\
