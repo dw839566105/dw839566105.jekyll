@@ -10,7 +10,7 @@ tags:
     - Interior point
     - Optimization
 ---
-
+[参考资料](http://apmonitor.com/me575/uploads/Main/interior_point_lecture.pdf)  
 # Question:  
 #### Nonlinear Constrained Optimization
 >$ \min f(x) $
@@ -187,3 +187,4 @@ and $d_k^z = \mu_kX_k^{-1}e-z_k-\Sigma_kd_k^x$
 + 2 popular approaches
   * discrete in merit function, $merit =f(x)+\nu \sum \lvert c(x) \rvert$  
 
+![2-1](https://github.com/dw839566105/dw839566105.github.io/blob/master/img/IP/IP.png?raw=true)  
