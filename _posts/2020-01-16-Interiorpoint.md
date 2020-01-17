@@ -83,10 +83,11 @@ $c(x)=0$
 ***  
 
 ##### KKT condition:  
-$\min_{x\in R} f(x)$ s.t. $h_i(x)=0$ and $g_j(x)\leq 0$
-Lagrangian:
-$L(x,\mu,\lambda) = f(x)+\mu^th(x) + \lambda^t g(x)$
-$x^*$ is a local minimum $\Leftrightarrow$ There is a unique $\lambda^*$ s.t.  
+$\min_{x\in R} f(x)$ s.t. $h_i(x)=0$ and $g_j(x)\leq 0$  
+Lagrangian:  
+$L(x,\mu,\lambda) = f(x)+\mu^th(x) + \lambda^t g(x)$  
+
+$x^*$ is a local minimum $\Leftrightarrow$ There is a unique $\lambda^*$ s.t.   
 1. $\nabla_x \mathcal{L}(x^*,\lambda^*) = 0$
 2. $\lambda^*>0 $
 3. $\lambda^*g(x^*)=0$
