@@ -116,8 +116,7 @@ $
     Z_k & 0 & X_k\\  
   \end{array}
 \right)
-$  
-$
+$ $
 \left(
     \begin{array}{c}
     d_k^x\\
