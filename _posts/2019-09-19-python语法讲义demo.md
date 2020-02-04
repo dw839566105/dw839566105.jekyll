@@ -17,10 +17,10 @@ tags:
 
 # 1. Function
 ## 1.1 First python program
->
+>  
     SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
     1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}
-
+    
     def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 
         '''Convert a file size to human-readable form.
@@ -70,21 +70,21 @@ Use `type()` or `.type` to view the class of variable.
 > 4. print: built-in function
 
 Variables:
-> 
-    \>>> from humansize import approximate_size
-    \>>> approximate_size(4000, a_kilobyte_is_1024_bytes=False) ①
+``` 
+    >>> from humansize import approximate_size
+    >>> approximate_size(4000, a_kilobyte_is_1024_bytes=False)
     '4.0 KB'
-    \>>> approximate_size(size=4000, a_kilobyte_is_1024_bytes=False) ②
+    >>> approximate_size(size=4000, a_kilobyte_is_1024_bytes=False)
     '4.0 KB'
-    \>>> approximate_size(a_kilobyte_is_1024_bytes=False, size=4000) ③
+    >>> approximate_size(a_kilobyte_is_1024_bytes=False, size=4000)
     '4.0 KB'
-    \>>> approximate_size(a_kilobyte_is_1024_bytes=False, 4000) ④
+    >>> approximate_size(a_kilobyte_is_1024_bytes=False, 4000)
     File "<stdin>", line 1
     SyntaxError: non-keyword arg after keyword arg
-    \>>> approximate_size(size=4000, False) ⑤
+    >>> approximate_size(size=4000, False)
     File "<stdin>", line 1
     SyntaxError: non-keyword arg after keyword arg
-
+```
 As soon as you have a named argument, all arguments to the right of that need to be named arguments, too.  
 
 
