@@ -17,10 +17,10 @@ tags:
 
 # 1. Function
 ## 1.1 First python program
->  
+``` 
     SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
     1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}
-    
+
     def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 
         '''Convert a file size to human-readable form.
@@ -44,8 +44,9 @@ tags:
     if __name__ == '__main__':
         print(approximate_size(1000000000000, False))
         print(approximate_size(1000000000000))
+```
 function format:
->
+```
     def func_name(var1, var2 = v2, *args, **kargs)
         '''
         fun.__doc__
@@ -53,7 +54,7 @@ function format:
         Your code here
 
         return value
-
+```
 Note:   
 > 1. Use `'''  '''` to include instruction of functions, which is shown in `fun.__doc__`
 > 2. The `fun.__name__` is `__main__` Only when the program is being executed, it will not be executed when be imported 
