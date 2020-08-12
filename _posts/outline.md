@@ -26,7 +26,23 @@
 >>> Each point 20000 beam. Per beam 1 event.
 >>> Trigger: 10 PMTs. (Need to discuss when close to boundry)
 >>> software: JSAP
-#### 1. Program main framework: Reconstruction Program (This part is almost finished)
+###### Output:
+1. root file alone axis
+1.1 root file at 0.8 - 2.0 MeV
+1.2 root files from [0,0,-0.64] ~ [0,0,+0.64] of each energy
+1.3 root files at x,y,z,xy,xz,yz,xyz direction
+
+#### 1. Legendre Coefficients: (Finished)
+Use template to get an energy and radius dependent Legendre coefficient.
+
+###### Output: 
+3-d matrix(Energy\*radius\*Legendre coeff)  
+###### Doubts: 
+$Y_{l0}$ dependence: (important)
+1. Trigger rate - lower trigger rate
+2. Birks' law - ?
+
+#### 2. Program main framework: Reconstruction Program (This part is almost finished)
 This part is theory.
 Likelihood function is a Poisson distribution. 
 $p\sim\mathrm{Poisson}(n_i,\lambda)$
@@ -34,40 +50,81 @@ $p\sim\mathrm{Poisson}(n_i,\lambda)$
 + $\lambda$ is expected photons to esitimate 
 $\mathcal{L}=\log \prod_i p_i = \sum_i \log p_i$
 
-
-##### 1.a Naive likelihood (100 %)
+##### 2.a Naive likelihood (100 %)
 $\lambda_i = E\cdot Y(E) \cdot \frac{\Omega}{4\pi}\cdot \eta \cdot \exp\{-\frac{d_i}{L}\}$
-##### 1.b Simulation templates (75 %)
+input: {pe, t_i, attenuation, quantum efficiency }
+output: $\{E, x, y, z,\tau_d, t_0\}$  
+
+##### 2.b Simulation templates (75 %)
 $\lambda_i = \theta x_i $
-#### 2. Processing Result (Both method)
-##### Simulation data
-##### 2.1 Map of Resolution Histogram
-2-d Histogram $E$ vs $r$
-> Simulated point at certain vertex.
-##### 2.2 Map of Bias Histogram  
-2-d Histogram $E$ vs $r$
-> Slice of 1-d errorbar with bias and uncertainty
-> * 5 kt 
+
+#### 3. Processing Result of Simulation (Both method)
+##### Input: Simulation data
+Reconstructed vertex at certain grids
+by Maximum Likelihood
+##### 3.1 Map of Bias and Resolution Histogram
+###### Output figure: 
++ 2-d Histogram $E$ vs $r$ 
+> Slice of 1-d errorbar with bias and uncertainty 
+> * 5 kt (naive ML)
 >> Different energy at 0.5, 1, 2 MeV
 >> Different radius at 0, 8, 10 m   
 >
-> * 1 t
+> * 1 t (naive ML and SH)
 >> Different energy at 0.5, 1, 2 MeV
 >> Different radius at each step (0.01 m)
 
-#### 3. Time infomation
-$t_c = t_i - t_f - t_0 \sim \mathrm{Time\ profile}$ 
-##### 3.1 Naive likelihood
-Prior of time profile is known 
-##### 3.2 Spherical Harmonics
-+ Use template (Similar，have difficulties when photon scattered, only 1 value will be calculated but the arrive time may have many values.)
-##### 3.3 Use EM
-    1. Use reconstructed vertex get an prior of time distribution $E$ vs $\tau_d$
-    2. Use mask as the input of next step
 
-+ plot the energy spectrum
+##### 3.2 Map of Resolution Histogram By Naive ML
+
+###### Output figure:
++ Reconstruction of 5 kt simulation of different $\tau_d$
+
+> + 5 kt simulation data (Random vertex)
+> + 2 types: energy dependent $\tau_d$
+>    + Makefile needed 
+>    + An assumption of relationship needed
+>    + GEANT4 does not has this process
+
+###### Input: Real data
+##### 3.3 Why Naive ML does not work?
+
+###### Output figure:
++ Shut down 1 PMT result (many sub-figures)
+
+> + Shut down 1 PMT reconstruction result
+
+##### 3.4 Real Data Reconstruction by SH
+> + Energy spectrum vs radius (finish)
+
+#### 4. Time infomation [Using EM] (Most difficult)
+$t_c = t_i - t_f - t_0 \sim \mathrm{Time\ profile}$
+##### 4.1 Naive likelihood (infeasible)
++ Prior of time profile is known 
+##### 4.2 Spherical Harmonics (Benda Xu does)
++ Use template (Similar，have difficulties when photon scattered, only 1 value will be calculated but the arrive time may have many values.)
+##### 4.3 Use masks as EM (main job)
+> 1. Use reconstructed vertex get an prior of time distribution $E$ vs $\tau_d$
+> 2. Use mask as the input of next step
+
+###### output figure:
++ plot the energy spectrum vs $\tau_d$
+
+###### Extra task:
++ clusters
 + plot the $\alpha$, $\beta$ classification
 
 ##### Spherical Harmonics difficulties
     *1. difference of PMTs (calibration)
     *2. ignorance of PMTs (In simulation)
+    *3. EM
+
+#### EM:
+###### Input:
++ Recon vertex
+###### ???:
+###### output:
++ Recon $\tau_d$
+
+1. use recon vertex to recon $\tau_d$
+2. get a mask of $E$ vs $\tau_d$

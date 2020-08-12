@@ -88,4 +88,7 @@ Variables:
 ```
 As soon as you have a named argument, all arguments to the right of that need to be named arguments, too.  
 
+# 2. Datatype
+
+
 
