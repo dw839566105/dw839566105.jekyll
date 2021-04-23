@@ -20,9 +20,9 @@ Given an $n$ statistical unit data set $$\{y_i, x_{i1},\cdots,x_{ip}\}$$
 + $\vec{x}_i$ is a $p$-vector regressor  
 
 Satisfy:
-$$ y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \epsilon_i = \vec{x_i}^T \vec{\beta} + \epsilon_i \qquad i=1,\cdots,n$$  
+$ y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \epsilon_i = \vec{x_i}^T \vec{\beta} + \epsilon_i \qquad i=1,\cdots,n$  
 Written into a matrix multiplier:  
-$$ \vec{y} = X\vec{\beta}+\vec{\epsilon} $$
+$ \vec{y} = X\vec{\beta}+\vec{\epsilon} $
 
 + predicted variables $\vec{y} = [y_1, y_2,\cdots, y_n]^T$ 
 + predictor variables, regressors $X =
