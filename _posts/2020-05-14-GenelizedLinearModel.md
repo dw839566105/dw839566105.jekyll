@@ -15,7 +15,7 @@ tags:
 
 # Generalized linear model
 ## Linear model
-Given an $n$ statistical unit data set $$\{y_i, x_{i1},\cdots,x_{ip}\}$$ 
+Given an $n$ statistical unit data set $\{y_i, x_{i1},\cdots,x_{ip}\}$
 + $y_i$ is observed values 
 + $\vec{x}_i$ is a $p$-vector regressor  
 
