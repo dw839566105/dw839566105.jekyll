@@ -13,7 +13,7 @@ tags:
 [参考资料](http://apmonitor.com/me575/uploads/Main/interior_point_lecture.pdf)  
 # Question:  
 #### Nonlinear Constrained Optimization
->$ \min f(x) $
+> $ \min f(x) $
 s.t.  
 $c(x)=0$ & $ x \geq 0$  
 
