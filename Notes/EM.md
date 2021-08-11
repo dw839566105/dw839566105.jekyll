@@ -2,7 +2,7 @@ EM (Expectation Maximization)
 
 Observed data are N samples independently generated from the mixture probalilistic model:
 $P(X|\Theta) = \sum_{k=1}^K \pi_k p_i(X|\theta_i)$
-Here $\Theta = \{{\pi_1,…,\pi_M,\theta_1,…,\theta_M}\}$.
+Here $\Theta = {\pi_1,…,\pi_M,\theta_1,…,\theta_M}$.
 
 Suppose $z$ is a hidden variable that describe which class $x_{i}$ comes from, including
 
