@@ -1,9 +1,9 @@
 ---
 layout:     post
-title:      python简单语法
+title:      python
 subtitle:   
 date:       2019-09-20
-author:     BY DW
+author:     DW
 header-img: img/post/post-bg-2.jpg
 catalog: true
 tags:

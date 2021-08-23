@@ -16,24 +16,26 @@ header-img: "img/home/home-bg-thm1.jpg"
 
     <!--copied from markdown -->
     <blockquote>Protoss is a good race,<p><br>
-    please don't change!</p></blockquote>
+            please don't change!</p>
+    </blockquote>
 
     <p>Hey，我是<strong>DW</strong>，就读于THU DEP。主要工作是射电天文观测及中微子事例重建，并对算法感兴趣</p>
 
-    <p>这是我参照别人的模板利用 <a href="https://pages.github.com/">GitHub Pages</a> 与 <a href="http://jekyll.com.cn/">Jekyll</a> 搭建的 个人博客。我在GitHub主页<a href="https://github.com/dw839566105">👉GitHub·DW</a></p>
-    
+    <p>这是我参照别人的模板利用 <a href="https://pages.github.com/">GitHub Pages</a> 与 <a href="http://jekyll.com.cn/">Jekyll</a>
+        搭建的 个人博客。我在GitHub主页<a href="https://github.com/dw839566105">👉GitHub·DW</a></p>
+
     <p>我也平时喜欢观看RTS、moba游戏、简单的音游、剧情类游戏，曾是一个轻度taptaper，欢迎大家互相种草~</p>
 
     <p></p>
-    
+
     <p>
         主要分为
-        <ul>
-            Home: The cheat sheet & template for some code.
-            Note: Notes for algorithms
-            Essay: Bio, lyrics
-            Games: Games recordings
-        </ul>
+    <ul>
+        Home: The cheat sheet & template for some code.
+        Note: Notes for algorithms
+        Essay: Bio, lyrics
+        Games: Games recordings
+    </ul>
     </p>
     <h5>Links</h5>
 
@@ -51,18 +53,25 @@ header-img: "img/home/home-bg-thm1.jpg"
             <li><a href="https://www.youtube.com/watch?v=VH7oFgi7_1Q&t=2226s">Bisu vs Jaedong @Andromeda</a></li>
             <li><a href="https://www.youtube.com/watch?v=BpFDGyTLtpY">Bisu vs Jaedong @Heartbreak Ridge</a></li>
             <li><a href="https://www.youtube.com/watch?v=26-YW4Qcj-o&t=828s">Bisu vs Jaedong @Judgement Day</a></li>
-        
+
         </ul>
 
         <li><a href="freebirdgames.com/to_the_moon">To the Moon</a></li>
         <li><a href="freebirdgames.com/finding-paradise">Finding Paradise</a></li>
         <li><a> Dancing Line </a></li>
         <ul>
-            <li><a href="https://cloud.tsinghua.edu.cn/seafhttp/files/934da3d8-4a89-4b71-a68a-fc8fbc2f243c/The%20Ugly%20Duckling.mp4">The Ugly Duckling</a></li>
-            <li><a href="https://cloud.tsinghua.edu.cn/seafhttp/files/0c083af3-0175-4751-a6b7-a7ee225179f0/The%20City%20of%20Dream.mp4">The City of Dreams</a></li>
-            <li><a href="https://cloud.tsinghua.edu.cn/seafhttp/files/9d2010c7-637d-44a8-8c37-e5c0ea236c9f/The%20Ocean.mp4">The Ocean</a></li>
+            <li><a
+                    href="https://cloud.tsinghua.edu.cn/seafhttp/files/934da3d8-4a89-4b71-a68a-fc8fbc2f243c/The%20Ugly%20Duckling.mp4">The
+                    Ugly Duckling</a></li>
+            <li><a
+                    href="https://cloud.tsinghua.edu.cn/seafhttp/files/0c083af3-0175-4751-a6b7-a7ee225179f0/The%20City%20of%20Dream.mp4">The
+                    City of Dreams</a></li>
+            <li><a
+                    href="https://cloud.tsinghua.edu.cn/seafhttp/files/9d2010c7-637d-44a8-8c37-e5c0ea236c9f/The%20Ocean.mp4">The
+                    Ocean</a></li>
         </ul>
     </ul>
+    <img src="img/home/llk.png">
 </div>
 
 <!-- English Version -->
@@ -97,15 +106,15 @@ header-img: "img/home/home-bg-thm1.jpg"
     window.addEventListener('hashchange', _render);
 
     // handle render
-    function _render(){
+    function _render() {
         var _hash = window.location.hash;
         // en
-        if(_hash == "#en"){
+        if (_hash == "#en") {
             $select.selectedIndex = 1;
             $en.style.display = "block";
             $zh.style.display = "none";
-        // zh by default
-        }else{
+            // zh by default
+        } else {
             // not trigger onChange, otherwise cause a loop call.
             $select.selectedIndex = 0;
             $zh.style.display = "block";
@@ -114,10 +123,10 @@ header-img: "img/home/home-bg-thm1.jpg"
     }
 
     // handle select change
-    function onLanChange(index){
-        if(index == 0){
+    function onLanChange(index) {
+        if (index == 0) {
             window.location.hash = "#zh"
-        }else{
+        } else {
             window.location.hash = "#en"
         }
     }
@@ -134,14 +143,14 @@ header-img: "img/home/home-bg-thm1.jpg"
 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
 
 <div id="gitalk-container"></div>
-    <script type="text/javascript">
+<script type="text/javascript">
     var gitalk = new Gitalk({
-    clientID: '{{site.gitalk.clientID}}',
-    clientSecret: '{{site.gitalk.clientSecret}}',
-    repo: '{{site.gitalk.repo}}',
-    owner: '{{site.gitalk.owner}}',
-    admin: ['{{site.gitalk.admin}}'],
-    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
+        clientID: '{{site.gitalk.clientID}}',
+        clientSecret: '{{site.gitalk.clientSecret}}',
+        repo: '{{site.gitalk.repo}}',
+        owner: '{{site.gitalk.owner}}',
+        admin: ['{{site.gitalk.admin}}'],
+        distractionFreeMode: {{ site.gitalk.distractionFreeMode }},
     id: 'about',
     });
     gitalk.render('gitalk-container');
@@ -149,7 +158,7 @@ header-img: "img/home/home-bg-thm1.jpg"
 {% endif %}
 <!-- Gitalk end -->
 
- <!-- disqus 评论框 start  -->
+<!-- disqus 评论框 start  -->
 {% if site.disqus.enable %}
 
 <div class="comment">
@@ -165,7 +174,7 @@ header-img: "img/home/home-bg-thm1.jpg"
     var disqus_identifier = "{{site.disqus.username}}/{{page.url}}";
     var disqus_url = "{{site.url}}{{page.url}}";
 
-    (function() {
+    (function () {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -173,4 +182,3 @@ header-img: "img/home/home-bg-thm1.jpg"
 </script>
 <!-- disqus 公共JS代码 end -->
 {% endif %}
-
