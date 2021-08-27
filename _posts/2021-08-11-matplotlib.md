@@ -11,6 +11,10 @@ tags:
 ---
 
 # [Template]：Matplotlib
-> 教程: [Tutorial](https://matplotlib.org/stable/tutorials/index.html) 
+> 教程: [Tutorial](https://matplotlib.org/stable/tutorials/index.html)
+
 > 示例: [examples](https://matplotlib.org/stable/gallery/index.html)
-> Basics: [ipynb](../ipynb/basics.ipynb)
+
+> Basics: [ipynb](https://github.com/dw839566105/dw839566105.github.io/blob/master/ipynb/basics.ipynb)
+
+> Styles: [ipynb](https://github.com/dw839566105/dw839566105.github.io/blob/master/ipynb/sns.ipynb)
