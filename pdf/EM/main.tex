@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{ulem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Expectation Maximization for Mixture Model}
+\author{dw}
+
+\begin{document}
+\maketitle
+\section{Mixture model}
+In statistics, a mixture model is a probabilistic model for representing the presence of subpopulations within an overall population, without requiring that an observed data set should identify the sub-population to which an individual observation belongs. It is common to think of probability mixture modeling as a missing data problem. One way to understand this is to assume that the data points under consideration have "membership" in one of the distributions we are using to model the data. When we start, this membership is unknown, or missing. \href{https://en.wikipedia.org/wiki/Mixture_model}{[1]}
+
+Assuming $N$ observation (index $i$) are observed in $K$ distributions(index $K$). The basis model is:
+\begin{equation}
+	p(x_i|\theta) = \sum_k \alpha_k p(x_i| \theta_k)
+\end{equation}
+
+\begin{itemize}
+	\item $\theta$ - parameters including $\theta_k$ and $\alpha_k$.
+	\item $\theta_k$ - parameters of $k$-th distribution.
+	\item $\alpha_k$ - weight or prior, equal to $p(z_{ik})$.
+\end{itemize}
+
+\textbf{Proof}:
+Hidden variables $z_{ik}$s indicate which class the $i$-th observation belongs to, value 1 shows in while 0 shows not, and $\sum_k {z_ik} = 1$, which satisfy categarical distribution.
+Likelihood including the hidden variables and observations is:
+
+\begin{equation}
+	\mathcal{L}(\theta|x_i, z_{ik}) \propto \prod_k p(x_i,z_{ik}|\theta_k)
+\end{equation}
+
+Using formula of total probability:
+
+It just a trick to promise $z_{ik}=0$ make nonsense in the formula. Using categarical distribution, we have
+
+\begin{equation}
+	\begin{aligned}
+		\mathcal{L}(\theta|x_i) \propto \sum_k p(x_i | z_{ik}, \theta) p(z_{ik} | \theta)
+		  & = \sum_k \prod_k p^{z_{ik}}(x_i,z_{ik}|\theta_k) p(z_{ik}|\theta) \\
+		  & = \sum_k \alpha_k p(x_i,z_{ik}|\theta_k)
+	\end{aligned}
+\end{equation}
+
+Don't be confused that:
+\begin{itemize}
+	\item $p(x_i,z_{ik}|\theta) = \{\alpha_k p(x_i|\theta_k)\}^{z_{ik}}$
+	\item $p(x_i|\theta,z_{ik}) = p^{z_{ik}}(x_i|\theta_k)$
+	\item $p(z_{ik}|\theta) = \alpha_k$
+\end{itemize}
+
+\section{Expectation Maximization}
+However, logsum is hard to optimize since all parameters are coupled, using Jensen Inequality we get the lower bound:
+\begin{equation}
+	\log\mathcal{L}_{i}(\theta|x_i) \propto \sum_{i} \log p(x_i|\theta) \geq \sum_{i} \sum_k q(z_{ik})\log\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\} = F(q,\theta)
+\end{equation}
+
+Here $q(z_{ik})$ is an arbitrary distribution of $z_{ik}$, satisfying $\sum_k q(z_{ik}) = 1$ only when
+\begin{equation}
+	q(z_{ik}) = \frac{\alpha_k p(x_i, z_{ik})}{\sum_{k'} p(x_i, z_{ik'})}
+\end{equation}
+the equality holds.
+
+\textbf{Proof}:
+By Jensen's inequality, for the concave function (such as $\log$) we have
+\begin{equation}
+	f(\frac{\sum_i a_i x_i}{\sum_i a_i}) \geq \frac{\sum_i a_i f(x_i)}{\sum_i a_i}
+\end{equation}
+When $\sum_i a_i = 1$, it becomes $f(\sum_i a_i x_i) \geq \sum_i a_i f(x_i)$
+Replace $a_i$ by $q(z_{ik})$ by $\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\}$, we have
+
+\begin{equation}
+	\begin{aligned}
+		\sum_i \log p(x_i|\theta) & = \sum_i \log \sum_k p(x_i, z_{i k}|\theta)                                 \\
+		                          & = \sum_i \log \sum_k q(z_{ik}) \{\frac{p(x_i, z_{ik}|\theta)} {q(z_{ik})}\} \\
+		                          & \geq \sum_i \sum_k q(z_{ik})\log\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\}
+	\end{aligned}
+	\label{eq: Ineq}
+\end{equation}
+
+when $\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\}$ is nothing to do with $k$ the inequality holds. Notice that
+\begin{equation}
+	p(z_{ik}|x_i,\theta) = \frac{p(x_i, z_{ik} |\theta)}{\sum_{k'} p(x_i , z_{ik'} | \theta)} = \frac{\alpha_k p(x_i|\theta_k)} {\sum_{k'} {\alpha_{k'} p(x_i|\theta_{k'})}}
+\end{equation}
+
+take $z_{ik}$ as $p(z_{ik}|x_i,\theta)$ and the $\sum_{k'} {\alpha_{k'} p(x_i|\theta_{k'})}$ is a constant.
+
+\section{EM flow chart}
+\begin{itemize}
+	\item \textbf{Initial}: Giving an initial guess of $\theta_{[0]}: \alpha_{k}^{[0]}, \theta_{k}^{[0]}$
+	\item \textbf{E-step}:
+	      $q^{[\mathrm{new}]} \leftarrow \arg\max_q F(q,\theta^{[\mathrm{old}]})$
+	      \begin{equation}
+		      \mathcal{L}(\theta^{[\mathrm{old}]}|t) \geq F(q,\theta^{[\mathrm{old}]}) = \sum_i \sum_k q(z_{ik})\log\{\frac{p(t_{i},z_{ik}|\theta^{[\mathrm{old}]})}{q(z_{ik})}\}
+	      \end{equation}
+
+	      we get
+	      \begin{equation}
+		      q(z_{ik}) = \frac{\alpha_k p(x_i|\theta_k^{[\mathrm{old}]})} {\sum_{k'} {\alpha_{k'} p(x_i|\theta_{k'}^{[\mathrm{old}]})}}
+	      \end{equation}
+
+	\item \textbf{M-step}:
+	      $\theta^{[\mathrm{new}]} \leftarrow \arg\max_{\theta} F(q^{[\mathrm{new}]},\theta)$\\
+	      By this way, the parameters in different classes can be optimized individually, Notice that:
+	      \begin{equation}
+		      F(q,\theta) = \sum_i \sum_k q(z_{ik}) \log{p(x_{i}, z_{ik}|\theta)} - \sum_i \sum_k q(z_{ik}) \log{q(z_{ik})}
+	      \end{equation}
+	      Only the former part is dependent on $\theta$, noted as $Q(q,\theta)$
+	      \begin{equation}
+		      \begin{aligned}
+			      Q(q^{[\mathrm{new}]},\theta) & = \sum_i \sum_k  q^{[\mathrm{new}]}(z_{ik})\log{p(x_i,z_{ik}|\theta)}               \\
+			                                   & = \sum_k \left\{\sum_i q^{[\mathrm{new}]}(z_{ik})\log{p(x_i,z_{ik}|\theta)}\right\}
+		      \end{aligned}
+	      \end{equation}
+
+	      The optimize target is change to single class.
+	\item Repeat until converge.
+\end{itemize}
+\textbf{Proof of Convergence:}
+1. In E-step, Jensen Inequality promise the convergence. \\
+2. In M-step, the optimize step promise the convergence. \\
+However, EM is not a global minimizer.
+
+\section{Alternative}
+E-step define the lower bounds of $\mathcal{L}(\theta|t) - \mathrm{KL}(q(z_{ik})||p(z_{ik}|x_i,\theta) $ \\
+Difference between $\log\mathcal{L}(\theta|x) $ and $ F(q,\theta)$ is the KL-divergence of:
+Proof:
+\begin{equation}
+	\begin{aligned}
+		L(\theta) - F(q,\theta) & = \sum_i^N \sum_{k=1}^K \log\{{ p(x_i|\theta)}\} - \sum_i^N \sum_{k=1}^K q(z_{ik})\log\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\}          \\
+		                        & = \sum_i^N \sum_{k=1}^K q(z_{ik})\log\{{ p(x_i|\theta)}\} - \sum_i^N \sum_{k=1}^K q(z_{ik})\log\{\frac{p(x_i,z_{ik}|\theta)}{q(z_{ik})}\} \\
+		                        & = \sum_i^N \sum_{k=1}^K q(z_{ik})\log\{\frac{p(x_i|\theta)/p(x_i,z_{ik}|\theta)}{q(z_{ik})}\}                                             \\
+		                        & = \sum_i^N \sum_{k=1}^K q(z_{ik})\log\{\frac{p(z_{ik}|x_i,\theta)}{q(z_{ik})}\}                                                           \\
+		                        & = \mathrm{KL}(q(z_{ik})||p(z_{ik}|x_i,\theta))
+	\end{aligned}
+\end{equation}
+The KL-divergence is always positive and have value 0 only if $q(z_{ik}) = p(z_{ik}|x_i,\theta)$.
+
+\section{Apply: Gaussian mixture model}
+\href{https://biarnes-adrien.medium.com/em-of-gmm-appendix-m-step-full-derivations-4ae95cdd40c9}{Proof}
+\end{document}
