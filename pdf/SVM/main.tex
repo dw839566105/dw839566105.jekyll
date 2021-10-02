@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{ulem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Expectation Maximization for Mixture Model}
+\author{dw}
+
+\begin{document}
+\maketitle
+\section{Kernel Method}
+Kernel methods owe their name to the use of kernel functions, which enable them to operate in a high-dimensional, implicit feature space without ever computing the coordinates of the data in that space, but rather by simply computing the inner products between the images of all pairs of data in the feature space. This operation is often computationally cheaper than the explicit computation of the coordinates. This approach is called the "kernel trick".
+
+For models which are based on a fixed nonlinear feature space mapping φ(x), the kernel function is given
+by the relation
+\begin{equation}
+	k(\bf{x},\bf{x}') = \phi(\bf{x})^T \phi(\bf{x}')
+	\label{eq: kernel}
+\end{equation}
+The simplest example of a kernel function is obtained by considering the identity
+mapping for the feature space in Eq. (\ref{eq: kernel}) so that $\phi(\bf{x}) = \bf{x}$, in which case $k(\bf{x}, \bf{x}') = \bf{x}^T \bf{x}'$. We shall refer to this as the linear kernel.
+
+For hyperplane $(w,b)$, the functional margin of sample point $(x_i, y_i)$ is
+\begin{equation}
+	\hat{\gamma}_i = y_i (\frac{\bf{w}}{\lVert{\bf{w}}\rVert}\cdot x_i + \frac{b}{\lVert{\bf{w}}\rVert})
+\end{equation}
+
+\begin{equation}
+	\max_{\bf{w},b} \gamma
+\end{equation}
+\begin{equation}
+	s.t. y_i (\bf{w}\cdot x_i + b) \geq \hat{\gamma}
+\end{equation}
+\end{document}
