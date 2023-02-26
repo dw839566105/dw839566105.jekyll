@@ -5,6 +5,17 @@
 
 <!-- hack iOS CSS :active style -->
 
+{% seo %}
+{% feed_meta %}
+<link rel="stylesheet" href="{{ " /assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+<!--[if !IE]> -->
+<link rel="stylesheet" href="/Live2dHistoire/live2d/css/live2d.css" />
+<script src="/js/jquery.min.js"></script>
+<!-- <![endif]-->
+<!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
 <body ontouchstart="">
 
     {% include nav.html %}
@@ -19,6 +30,41 @@
     <!-- Migrate from head to bottom, no longer block render and still work -->
 
     {% include open-embed.html %}
+
+    <section>
+
+        {{ content }}
+
+    </section>
+    <!--[if !IE]> -->
+    <div id="landlord" style="left:5px;bottom:0px;">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="500" height="560" class="live2d"></canvas>
+        <div class="live_talk_input_body">
+            <div class="live_talk_input_name_body" style="display:none;">
+                <input name="name" type="hidden" class="live_talk_name white_input" id="AIuserName"
+                    value="Mayx_Blog_Talk" />
+            </div>
+            <div class="live_talk_input_text_body">
+                <input name="talk" type="text" class="live_talk_talk white_input" id="AIuserText" autocomplete="off"
+                    placeholder="要和我聊什么呀？" />
+                <button type="button" class="live_talk_send_btn" id="talk_send">发送</button>
+            </div>
+        </div>
+        <input name="live_talk" id="live_talk" value="1" type="hidden" />
+        <div class="live_ico_box" style="display:none;">
+            <div class="live_ico_item type_info" id="showInfoBtn"></div>
+            <div class="live_ico_item type_talk" id="showTalkBtn"></div>
+            <div class="live_ico_item type_music" id="musicButton"></div>
+            <div class="live_ico_item type_youdu" id="youduButton"></div>
+            <div class="live_ico_item type_quit" id="hideButton"></div>
+            <input name="live_statu_val" id="live_statu_val" value="0" type="hidden" />
+            <audio src="" style="display:none;" id="live2d_bgm" data-bgm="0" preload="none"></audio>
+            <input id="duType" value="douqilai" type="hidden">
+        </div>
+    </div>
+    <div id="open_live2d">召唤伊斯特瓦尔</div>
+    <!-- <![endif]-->
 </body>
 
 </html>
