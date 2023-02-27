@@ -49,7 +49,7 @@ Reference from [here](https://indico.cern.ch/event/58317/contributions/2047459/a
 
 
 In the user action
-| Column 1 | Column 2 |
+|  |  |
 |:--------| :---------:|
 | Simulation is successively split into | Corresponding / related Objects | 
 | Run consists of | G4RunManager, G4Run | 
