@@ -5,9 +5,9 @@ header-img:     img/home/home-bg-1.jpg
 email:  douwei1030@163.com
 description:    "Every failure is leading towards success."
 keyword:        "dw"
-url:    "http://dw839566105.github.io"          # your host, for absolute URL
+# url:    "http://dw839566105.github.io"          # your host, for absolute URL
 baseurl:        ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo:    "https://github.com/dw839566105/dw839566105.github.io.git" # you code repository
+# github_repo:    "https://github.com/dw839566105/dw839566105.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar:        true                           # whether or not using Sidebar.
